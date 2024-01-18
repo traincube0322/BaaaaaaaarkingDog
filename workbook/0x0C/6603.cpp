@@ -1,18 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void	lotto(vector<int> &v, int k)
+int result[6];
+int k;
+
+void	lotto(vector<int> &v, int cur, int idx)
 {
-	for (auto i : v)
-		cout << i << " ";
-	cout << "\n";
+	if (cur == 6)
+	{
+		for (int i = 0; i < 6; i++)
+			cout << result[i] << " ";
+		cout << "\n";
+		return;
+	}
+	for (int i = idx; i <= k - 6 + cur; i++)
+	{
+		result[cur] = v[i];
+		lotto(v, cur + 1, i + 1);
+	}
 }
 
 int main()
 {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	int k;
+
 	while (1)
 	{
 		cin >> k;
@@ -26,7 +38,8 @@ int main()
 			v.push_back(num);
 		}
 		sort(v.begin(), v.end());
-		lotto(v, k);
+		lotto(v, 0, 0);
+		cout << "\n";
 	}
 	return 0;
 }
